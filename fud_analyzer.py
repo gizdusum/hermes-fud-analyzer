@@ -179,18 +179,44 @@ def _score_text(text: str, keyword_bank: dict) -> float:
 
 
 def _get_fud_label(score: float) -> str:
+    import random
     if score >= 80:
-        return "🚨 MAXIMUM FUD SPREADER — certified chaos agent"
+        return random.choice([
+            "🚨 MAXIMUM FUD SPREADER — probably cries looking at green candles",
+            "🚨 CERTIFIED CHAOS AGENT — their WiFi password is 'rugpull123'",
+            "🚨 LEVEL 99 DOOMER — even their horoscope says 'sell everything'",
+            "🚨 FULL-TIME FUDDER — hasn't touched grass since the bear market started",
+        ])
     elif score >= 60:
-        return "😈 HEAVY FUDDER — this person really hates crypto projects"
+        return random.choice([
+            "😈 HEAVY FUDDER — wakes up at 3am to post 'it's going to zero'",
+            "😈 PROFESSIONAL PESSIMIST — bookmarked every crypto obituary ever written",
+            "😈 CRYPTO VILLAIN — Thanos but for liquidity pools",
+        ])
     elif score >= 40:
-        return "🌧️ MODERATE FUDDER — skeptical but not unhinged"
+        return random.choice([
+            "🌧️ MODERATE FUDDER — glass half empty, wallet fully empty",
+            "🌧️ PART-TIME DOOMER — only fudding on weekdays",
+            "🌧️ CAUTIOUSLY CATASTROPHIC — doesn't panic sell, just panic tweets",
+        ])
     elif score >= 20:
-        return "😐 MILD FUD — occasional negativity, mostly chill"
+        return random.choice([
+            "😐 MILD FUD — the guy who says 'be careful' at every ATH",
+            "😐 OCCASIONAL PESSIMIST — probably just had a bad trade that week",
+            "😐 LOW-KEY FUDDER — wouldn't admit it but definitely sold the bottom",
+        ])
     elif score >= 10:
-        return "😇 LOW FUD — pretty balanced actually"
+        return random.choice([
+            "😇 MOSTLY CLEAN — a few bad takes but we've all been there",
+            "😇 BASICALLY INNOCENT — might've typed 'rip' once, we forgive them",
+            "😇 REFORMED FUDDER — probably touched grass recently",
+        ])
     else:
-        return "🤝 NO FUD DETECTED — either a shill or just vibing"
+        return random.choice([
+            "🤝 ZERO FUD — either a saint or a very good liar",
+            "🤝 PURE SOUL — has never said 'wen moon' unironically (probably has)",
+            "🤝 SUSPICIOUSLY POSITIVE — are you sure this person uses crypto Twitter?",
+        ])
 
 
 def analyze_fud(username: str) -> Dict[str, Any]:
@@ -266,40 +292,74 @@ def analyze_fud(username: str) -> Dict[str, Any]:
 
 if __name__ == "__main__":
     import sys
-    
+    import random
+
+    DISCLAIMER = (
+        "⚠️  FOR ENTERTAINMENT ONLY — results are based on random internet "
+        "scraps and vibes. Not financial advice. Not even real advice. Just fun."
+    )
+
+    FUD_BARS = ["▓", "█", "▒"]
+    SHILL_BARS = ["░", "▒", "▓"]
+
+    def draw_bar(pct: float, width: int = 20) -> str:
+        filled = round(pct / 100 * width)
+        return "█" * filled + "░" * (width - filled)
+
+    LOADING_MSGS = [
+        "consulting the blockchain spirits",
+        "counting negative tweets",
+        "checking under the FUD rock",
+        "asking ChatGPT (just kidding)",
+        "scanning the bear cave",
+        "calculating doomer levels",
+    ]
+
     if len(sys.argv) < 2:
-        print("Usage: python fud_analyzer.py <twitter_username>")
-        print("Example: python fud_analyzer.py elonmusk")
+        print("Usage: python3 fud_analyzer.py <twitter_username>")
+        print("Example: python3 fud_analyzer.py elonmusk")
         sys.exit(1)
-    
+
     handle = sys.argv[1].lstrip("@")
-    print(f"\n🔍 Analyzing @{handle} for FUD...\n")
-    
-    result = analyze_fud(handle)
-    
-    if "error" in result:
-        print(f"❌ {result['error']}")
-        sys.exit(1)
-    
-    print(f"  👤 Username:        {result['username']}")
-    print(f"  📝 Posts analyzed:  {result['posts_analyzed']}")
-    print(f"  🔴 FUD Score:       {result['fud_score']}%")
-    print(f"  🟢 Shill Score:     {result['shill_score']}%")
-    print(f"  ⚖️  Neutral:        {result['neutral_posts']} posts")
-    print(f"  🏷️  Verdict:        {result['verdict']}")
+
     print()
-    
+    print("=" * 52)
+    print("   🕵️  FUD ANALYZER 3000  (totally scientific)")
+    print("=" * 52)
+    print(f"\n  {DISCLAIMER}\n")
+    print(f"  🔍 {random.choice(LOADING_MSGS)}...\n")
+
+    result = analyze_fud(handle)
+
+    if "error" in result:
+        print(f"  ❌ {result['error']}")
+        print(f"  💡 {result.get('tip', '')}")
+        sys.exit(1)
+
+    fud = result['fud_score']
+    shill = result['shill_score']
+
+    print("=" * 52)
+    print(f"  👤  {result['username']}")
+    print("=" * 52)
+    print()
+    print(f"  🔴 FUD    {draw_bar(fud)}  {fud}%")
+    print(f"  🟢 SHILL  {draw_bar(shill)}  {shill}%")
+    print()
+    print(f"  🏷️  {result['verdict']}")
+    print()
+    print(f"  📊 Analyzed {result['posts_analyzed']} internet scraps")
+    print()
+
     if result['top_fud_evidence']:
-        print("  📛 Most FUD-like snippets found:")
-        for i, t in enumerate(result['top_fud_evidence'][:3], 1):
-            print(f"    {i}. [{t['fud_points']}pts] \"{t['text'][:120]}\"")
+        print("  📛 Exhibit A (sus snippets from the web):")
+        for i, t in enumerate(result['top_fud_evidence'][:2], 1):
+            snippet = t['text'][:100].replace('\n', ' ')
+            print(f"    {i}. \"{snippet}...\"")
         print()
-    
-    if result['top_shill_evidence']:
-        print("  💚 Most shill-like snippets found:")
-        for i, t in enumerate(result['top_shill_evidence'][:2], 1):
-            print(f"    {i}. [{t['shill_points']}pts] \"{t['text'][:120]}\"")
-        print()
-    
-    print("--- Full JSON ---")
-    print(json.dumps(result, indent=2, ensure_ascii=False))
+
+    print("=" * 52)
+    print("  🎲 Remember: this tool runs on chaos and vibes.")
+    print("     Share responsibly. Or irresponsibly. Up to you.")
+    print("=" * 52)
+    print()
