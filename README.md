@@ -89,20 +89,6 @@ Output:
 
 ---
 
-## 🔧 As a Hermes Agent Tool
-
-```bash
-hermes-agent --mcp fud=fud-analyzer
-```
-
-Then just ask:
-```
-You: "How much does @cryptoskeptic FUD projects?"
-Hermes: 😈 @cryptoskeptic has a FUD score of 72.3%...
-```
-
----
-
 ## 🛠️ Zero Dependencies
 
 Pure Python stdlib. No pip install. No API keys. No signup. Just works.
