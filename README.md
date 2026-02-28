@@ -37,22 +37,30 @@ This tool measures exactly how much someone does that.
 ## ⚡ Quick Start
 
 ```bash
-# No install needed — just run it
-python fud_analyzer.py elonmusk
+# 1. Clone the repo
+git clone https://github.com/gizdusum/hermes-fud-analyzer
+cd hermes-fud-analyzer
+
+# 2. Run it — no install needed
+python3 fud_analyzer.py elonmusk
+
+# On Windows, use:
+# python fud_analyzer.py elonmusk
 ```
 
 Output:
 ```
 🔍 Analyzing @elonmusk for FUD...
 
-  Username:        @elonmusk
-  Tweets analyzed: 24
-  FUD Score:       23.5%
-  Shill Score:     76.5%
-  Verdict:         😐 MILD FUD — occasional negativity, mostly chill
+  👤 Username:        @elonmusk
+  📝 Posts analyzed:  24
+  🔴 FUD Score:       23.5%
+  🟢 Shill Score:     76.5%
+  ⚖️  Neutral:        3 posts
+  🏷️  Verdict:        😐 MILD FUD — occasional negativity, mostly chill
 
-  📛 Most FUD-like snippets:
-    [6pts] "this project is dead, sold everything..."
+  📛 Most FUD-like snippets found:
+    1. [6pts] "this project is dead, sold everything..."
 ```
 
 ---
