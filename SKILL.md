@@ -2,7 +2,7 @@
 name: fud-analyzer
 description: Measure how much a Twitter/X account FUDs crypto projects. Feed it a handle, get a FUD percentage score with verdict. Zero dependencies — pure Python stdlib.
 version: 1.1.0
-author: Deniz Alagoz
+author: gizdusum
 license: MIT
 metadata:
   hermes:
